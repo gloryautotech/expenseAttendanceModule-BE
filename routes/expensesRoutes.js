@@ -54,11 +54,11 @@ let setRouter = (app) =>{
  *    fromdate:
  *     type: string
  *     description: fromdate
- *     example: '01/01/2021'  
+ *     example: '01-01-2021'  
  *    todate:
  *     type: string
  *     description: todate
- *     example: '01/02/2021'  
+ *     example: '01-02-2021'  
  *  expensesEdit:
  *   type: object
  *   properties:
