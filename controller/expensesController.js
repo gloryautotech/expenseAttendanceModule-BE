@@ -185,13 +185,13 @@ let deleteExpenses = (req, res) =>{
 }
 
 let expensesEdit = (req,res) =>{
-    if(check.isEmpty(req.params.expensesId)){
+    if(check.isEmpty(req.body.expensesId)){
         console.log("expesesId shude be passde");
         let apiResponse = response.generate(true, "missing expensesId", 403, null);
         res.send(apiResponse);
     } else {
         let options = req.body;
-        expensesModel.update({"expensesId": req.params.expensesId}, options, {multi:true}).exec((err, result)=>{
+        expensesModel.update({"expensesId": req.body.expensesId}, options, {multi:true}).exec((err, result)=>{
             if(err){
                 console.log(err);
                 logger.error(err.message, "expenses Controller: expensesEdit");
@@ -273,8 +273,9 @@ let filterbydate=(req,res)=>{
         })
    }
   else{
-       expensesModel.find({ "date":{"$gte":fromdate,"$lte":todate}}, (err, resultfdate) => {
+    const db1= expensesModel.find({ "date":{"$gte":fromdate,"$lte":todate}}, async(err, resultfdate) => {
         if (resultfdate) {
+            await db1;
             let apiResponse = response.generate(false, 'Found by this range date', 200, resultfdate)
             res.send(apiResponse)
         }else{

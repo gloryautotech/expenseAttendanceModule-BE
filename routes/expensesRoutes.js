@@ -54,11 +54,38 @@ let setRouter = (app) =>{
  *    fromdate:
  *     type: string
  *     description: fromdate
- *     example: '01-01-2021'  
+ *     example: '01/01/2021'  
  *    todate:
  *     type: string
  *     description: todate
- *     example: '01-02-2021'  
+ *     example: '01/02/2021'  
+ *  expensesEdit:
+ *   type: object
+ *   properties:
+ *    expensesId:
+ *     type: string
+ *     description: expensesId to update
+ *     example: 'expensesId to update'  
+ *    category:
+ *     type: string
+ *     description: name
+ *     example: 'name'  
+ *    date:
+ *     type: string
+ *     description: date
+ *     example: 'MM-DD-YYYY'  
+ *    remark:
+ *     type: string
+ *     description: remark
+ *     example: 'remark'  
+ *    amount:
+ *     type: string
+ *     description: amount
+ *     example: 'amount'    
+ *    party:
+ *     type: string
+ *     description: party name
+ *     example: 'party name'    
 */  
     
 /**
@@ -75,7 +102,7 @@ let setRouter = (app) =>{
 *         description: An array of Expenses
 */
 app.get(baseUrl+'/all', expensesControllerl.getAllExpense);
-    
+
 /**
  * @swagger
  * /api/v1/expenses/{expensesId}/viewById:
@@ -118,34 +145,30 @@ app.put(baseUrl+'/:expensesId/viewById', expensesControllerl.getSingleExpenseVie
  */
  app.put(baseUrl+'/:expensesId/delete', expensesControllerl.deleteExpenses);
 
-//  /**
-//  @swagger     
-//  *  /api/v1/expenses/{expensesId}/expensesEdit:  
-//  *    put:   
-//  *      tags:    
-//  *        - Expenses     
-//  *      description: Updates a single Expenses 
-//  *      produces:    
-//  *        - application/json     
-//  *      parameters:  
-//  *        - name: expensesId   
-//  *          description: category object resources   
-//  *          in: body     
-//  *          required: true   
-//  *          schema:  
-//  *            $ref: '#/components/schemas/expensesEdit'  
-//  *        - name: expensesId     
-//  *          description: Expenses Object ID  
-//  *          in: path     
-//  *          required: true   
-//  *      responses:   
-//  *        200:   
-//  *          description: Successfully Edit Expenses  
-//  *        500:   
-//  *          description: Server error
-//  * */
-// app.put(baseUrl+'/:expensesId/expensesEdit', expensesControllerl.expensesEdit);
-    
+ /**
+ @swagger     
+ *  /api/v1/expenses/{expensesId}/expensesEdit:  
+ *    post:   
+ *      tags:    
+ *        - Expenses     
+ *      description: Updates a single Expenses 
+ *      produces:    
+ *        - application/json     
+ *      parameters:  
+ *        - name: expensesId   
+ *          description: category object resources   
+ *          in: body     
+ *          required: true   
+ *          schema:  
+ *            $ref: '#/definitions/expensesEdit'   
+ *      responses:   
+ *        200:   
+ *          description: Successfully Edit Expenses  
+ *        500:   
+ *          description: Server error
+ * */
+app.post(baseUrl+'/expensesEdit', expensesControllerl.expensesEdit);
+
 /**
  * @swagger
  * /api/v1/expenses/create:
