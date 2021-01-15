@@ -9,49 +9,46 @@ const time = require("./../lib/timeLib");
 let emplyeeSchema = new Schema({
 
         employeeId:{
-            // type:Number,
             type:String,
             unique:true
         },
         employeeFirstName:{
             type:String,
-            required:true,
-            default:''
         },
         employeeLastName:{
             type:String,
-            required:true,
-            default:''
+        },
+        employeeSalary:{
+            type:Number,
+        },
+        employeeCode:{
+            type:String,
+        },
+        employeeBondPeriod:{
+            type:String,
+        },
+        employeeRate:{
+            type:Number,
         },
         employeeJoinDate:{
             type:String,
-            required:true, 
-            default: moment().format('MM-DD-YYYY')
+            default: moment().format('DD-MM-YYYY')
         },
         employeeDateOfBirthday:{
             type:String, 
-            required:true,
-            default: moment().format('MM-DD-YYYY')
+            default: moment().format('DD-MM-YYYY')
         },
         employeeDegree:{
             type:String,
-            required:true,
-            default:''
         },
         employeeAddress:{
             type:String,
-            required:true,
-            default:''
         },
         role:{
             type:String,
-            required:true,
-            default:''
         },
         employeeEmail:{
             type:String,
-            required:true,
-            default:''
         },
         employeePassword:{
             type: String,
@@ -59,13 +56,12 @@ let emplyeeSchema = new Schema({
         },
         employeeNumber:{
             type:Number,
-            required:true,
-            default:''
         },
         employeePhoto:{
             type:String,
-            trim:true,
-            default:''
+        },
+        employeeResume:{
+            type:String,
         },
         created:{
             type:Date,

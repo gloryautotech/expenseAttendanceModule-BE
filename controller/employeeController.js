@@ -8,13 +8,10 @@ const check    = require("./../lib/checkLib");
 const fs = require("fs");
 const { exec } = require("child_process");
 
-
-
-// start employeefunction 
 const employeeModel = mongoose.model('employee');
 
+// start employeefunction 
 let employeeFunction = (req, res) => {
-
     let validateEmployeeInput = () => {
         return new Promise((resolve, reject) => {
             if (req.body.employeeEmail) {
@@ -34,7 +31,6 @@ let employeeFunction = (req, res) => {
             }
         })
     }// end validate user input
-
     let createEmployee = () => {
         return new Promise((resolve, reject) => {
             employeeModel.findOne({ employeeEmail: req.body.employeeEmail })
@@ -45,13 +41,17 @@ let employeeFunction = (req, res) => {
                         reject(apiResponse)
                     } else if (check.isEmpty(retrievedEmployeeDetails)) {
                         console.log(req.body)
-                        let image = req.file.path
-                        let buff = fs.readFileSync(image);
-                        let base64data = buff.toString('base64');                    
+                        // let image = req.file.path
+                        // let buff = fs.readFileSync(image);
+                        // let base64data = buff.toString('base64');                    
                         let newEmployee = new employeeModel({
                             employeeId:             shortid.generate(),
                             employeeFirstName:      req.body.employeeFirstName,
                             employeeLastName:       req.body.employeeLastName,
+                            employeeSalary:req.body.employeeSalary,
+                            employeeCode:req.body.employeeCode,
+                            employeeBondPeriod:req.body.employeeBondPeriod,
+                            employeeRate:req.body.employeeRate,
                             employeeJoinDate:       req.body.employeeJoinDate,
                             employeeDateOfBirthday: req.body.employeeDateOfBirthday,
                             employeeDegree:         req.body.employeeDegree,
@@ -60,7 +60,9 @@ let employeeFunction = (req, res) => {
                             employeeEmail:          req.body.employeeEmail.toLowerCase(),
                             employeeNumber:         req.body.employeeNumber,  
                             employeePassword:       req.body.employeePassword,
-                            employeePhoto:          base64data,
+                            employeePhoto:req.body.employeePhoto,
+                            employeeResume:req.body.employeeResume,
+                            //employeePhoto:          base64data,
                             created:                time.now(),
                             lastDateUpdate:         time.now()
                         })
@@ -83,8 +85,6 @@ let employeeFunction = (req, res) => {
                 })
         })
     }// end create Employee function
-
-
     validateEmployeeInput(req, res)
         .then(createEmployee)
         .then((resolve) => {

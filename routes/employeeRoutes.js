@@ -38,14 +38,30 @@ let setRouter = (app) =>{
  *     type: string
  *     description: Last name
  *     example: 'last name'  
+ *    employeeSalary:
+ *     type: number
+ *     description: Salary
+ *     example: '25000'  
+ *    employeeCode:
+ *     type: string
+ *     description: employee Code
+ *     example: '001'  
+ *    employeeBondPeriod:
+ *     type: string
+ *     description: employee Bond Period
+ *     example: '6 month'  
+ *    employeeRate:
+ *     type: number
+ *     description: employee Rate
+ *     example: '500'  
  *    employeeJoinDate:
  *     type: string
  *     description: employeeJoinDate
- *     example: 'MM-DD-YYYY'  
+ *     example: 'DD-MM-YYYY'  
  *    employeeDateOfBirthday:
  *     type: string
  *     description: employeeDateOfBirthday
- *     example: 'MM-DD-YYYY'  
+ *     example: 'DD-MM-YYYY'  
  *    employeeDegree:
  *     type: string
  *     description: employeeDegree
@@ -61,15 +77,23 @@ let setRouter = (app) =>{
  *    employeeEmail:
  *     type: string
  *     description: employeeEmail
- *     example: 'employeeEmail'  
+ *     example: 'yash1@gmail.com'  
  *    employeePassword:
  *     type: string
  *     description: employeePassword
- *     example: 'employeePassword'  
+ *     example: '12345678'  
  *    employeeNumber:
- *     type: string
+ *     type: number
  *     description: employeeNumber
- *     example: 'employeeDegree'  
+ *     example: '0123456789'  
+ *    employeePhoto:
+ *     type: string
+ *     description: employeePhoto
+ *     example: 'base 64 string'  
+ *    employeeResume:
+ *     type: number
+ *     description: employeeResume
+ *     example: 'base 64 string'  
  */  
 
 /**
@@ -119,9 +143,6 @@ app.put(baseUrl+'/:employeeJoinDate/getByJoinDateEmployee', employeeController.g
  *     tags:
  *       - Employee
  *     description: Creates a new employee
- *     summary: Uploads a file.
- *     consumes:
- *       - multipart/form-data
  *     parameters:
  *       - name: employeeName
  *         description: body
@@ -129,16 +150,11 @@ app.put(baseUrl+'/:employeeJoinDate/getByJoinDateEmployee', employeeController.g
  *         required: true
  *         schema:
  *           $ref: '#/definitions/createEmployee'
- *       - name: employeePhoto
- *         in: formData   
- *         description: employeePhoto
- *         required: true
- *         type: file    
  *     responses:
  *       200:
  *         description: Successfully created
  */
-app.post(baseUrl+'/createEmployee', uploadMulter,validation, employeeController.employeeFunction);
+app.post(baseUrl+'/createEmployee', employeeController.employeeFunction);
 
 /**
  * @swagger
