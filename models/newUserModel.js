@@ -16,12 +16,12 @@ let userSchema = new Schema({
         },
         userName:{
             type:String,
-            required:true,
+          
             default:''
         },
         userPassword:{
             type:String,
-            required:true,
+          
             default:''
         },
         created:{
