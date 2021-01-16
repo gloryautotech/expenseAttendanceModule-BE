@@ -199,14 +199,14 @@ let getSingleEmployee = (req, res) => {
 
 let editEmployee = (req, res) => {
 
-    if(check.isEmpty(req.params.employeeId)){
+    if(check.isEmpty(req.body.employeeId)){
             console.log("please enter the employeeId");
             let apiResponse = response.generate(true, "missing the employeeId",403,null);
             res.send(apiResponse);
     
     } else {
     let options = req.body;
-    employeeModel.update({ 'employeeId': req.params.employeeId }, options, {multi:true}).exec((err, result) => {
+    employeeModel.update({ 'employeeId': req.body.employeeId }, options, {multi:true}).exec((err, result) => {
             if (err) {
                 console.log(err)
                 logger.error(err.message, 'Employee Controller:editEmployee', 10)
