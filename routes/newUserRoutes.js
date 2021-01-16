@@ -45,13 +45,6 @@ let setRouter = (app) =>{
  *     type: string
  *     description: userPassword
  *     example: 'userPassword'    
- *  viewById:
- *   type: object
- *   properties:
- *    userId:
- *     type: string
- *     description: userId
- *     example: 'userId'  
  *  userEdit:
  *   type: object
  *   properties:

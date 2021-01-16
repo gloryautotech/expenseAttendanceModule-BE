@@ -6,7 +6,7 @@ let setRouter = (app) =>{
 
     let baseUrl = appConfig.apiVersion+'/blog';
     app.get(baseUrl+'/all', blogsController.getAllBlog);
-    app.get(baseUrl+'/allS', blogsController.getAllBlogs);
+    //app.get(baseUrl+'/allS', blogsController.getAllBlogs);
     app.get(baseUrl+'/catgeoryAll', blogsController.getAllCategory);
     app.get(baseUrl+'/getBrandAll', blogsController.getAllBrand);
     app.get(baseUrl+'/view/:id', blogsController.viewById);
