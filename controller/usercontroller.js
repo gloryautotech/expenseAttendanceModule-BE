@@ -106,12 +106,12 @@ let getAllUser = (req, res) => {
 
 
 let deleteUser = (req, res) => {
-    if(check.isEmpty(req.body.userId)){
+    if(check.isEmpty(req.params.userId)){
         console.log("please enter the userId");
         let apiResponse = response.generate(true, "misiing the userId", 403, null);
         res.send(apiResponse);
     } else {
-        newUserModel.findOneAndRemove({ 'userId': req.body.userId }).exec((err, result) => {
+        newUserModel.findOneAndRemove({ 'userId': req.params.userId }).exec((err, result) => {
                                 if (err) {
                                     console.log(err)
                                     logger.error(err.message, 'userController: deleteUser', 10)
@@ -132,12 +132,12 @@ let deleteUser = (req, res) => {
 
 /* Get single Employee details */
 let getUserbyid = (req, res) => {
-    if(check.isEmpty(req.body.userId)){
+    if(check.isEmpty(req.params.userId)){
         console.log("please enter userId");
         let apiResponse = response.generate(true, "missing userId", 403, null);
         res.send(apiResponse);   
     } else {
-        newUserModel.findOne({ 'userId': req.body.userId })
+        newUserModel.findOne({ 'userId': req.params.userId })
         .select('-userPassword -__v -_id')
         .lean()
         .exec((err, result) => {

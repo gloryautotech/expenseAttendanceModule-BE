@@ -94,47 +94,45 @@ app.get(baseUrl+'/all', userController.getAllUser);
 
 /**
  * @swagger
- * /api/v1/user/viewById:
- *   post:
+ * /api/v1/user/{userId}/viewById:
+ *   put:
  *     tags:
  *       - User
- *     description: view By Id
+ *     description: Returns a single user
  *     produces:
  *       - application/json
  *     parameters:
  *       - name: userId
- *         description: user object
- *         in: body
+ *         description: userId single Details found 
+ *         in: path
  *         required: true
- *         schema:
- *           $ref: '#/definitions/viewById'
+ *         type: string
  *     responses:
  *       200:
- *         description: Successfully viewById
+ *         description: A single user by userId
  */
-app.post(baseUrl+'/viewById', userController.getUserbyid);
+app.put(baseUrl+'/:userId/viewById', userController.getUserbyid);
 
 /**
  * @swagger
- * /api/v1/user/delete:
- *   post:
+ * /api/v1/user/{userId}/delete:
+ *   put:
  *     tags:
  *       - User
- *     description: delete By Id
+ *     description: delete a single user
  *     produces:
  *       - application/json
  *     parameters:
  *       - name: userId
- *         description: user object
- *         in: body
+ *         description: delete a single user bu userid
+ *         in: path
  *         required: true
- *         schema:
- *           $ref: '#/definitions/viewById'
+ *         type: string
  *     responses:
  *       200:
- *         description: Successfully delete
+ *         description: elete a single user bu userid
  */
- app.post(baseUrl+'/delete', userController.deleteUser);
+ app.put(baseUrl+'/delete', userController.deleteUser);
 
  /**
  @swagger     
