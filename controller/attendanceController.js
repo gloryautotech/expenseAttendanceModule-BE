@@ -166,12 +166,30 @@ let editAttendance = (req, res) =>{
             })
         }
 }
+let getAttendancebyname = (req, res) =>{
+        attendanceModel.findOne({"employeeName": req.body.employeeName}).exec((err, resultgetAttendancebyname)=>{
+            if(err) {
+                console.log(err);
+                logger.error(err.message, "Attendance Controller: getViewByIdAttendance");
+                let apiResponse = response.generate(true, "Failed", 500, null);
+                res.send(apiResponse);
+            } else if(check.isEmpty(resultgetAttendancebyname)){
+                logger.info("no Attendance Found","Attendance Controller:getViewByIdAttendance");
+                let apiResponse = response.generate(true, "No Attendance Found", 404, null);
+                res.send(apiResponse);
+            } else {
+                let apiResponse = response.generate(false, "Found", 200, resultgetAttendancebyname);
+                res.send(apiResponse);
+            }
+        })
+    }
 
 module.exports = {
     getAllAttendance:getAllAttendance,
     getViewByIdAttendance:getViewByIdAttendance,
     deleteAttendanceById:deleteAttendanceById,
     attendanceFunction:attendanceFunction,
-    editAttendance:editAttendance
+    editAttendance:editAttendance,
+    getAttendancebyname:getAttendancebyname
 }
 

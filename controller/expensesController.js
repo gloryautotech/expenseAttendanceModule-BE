@@ -5,26 +5,20 @@ const time     = require('../lib/timeLib');
 const response = require('../lib/responseLib');
 const logger   = require('../lib/loggerLib');
 const check    = require('../lib/checkLib'); 
-
+const moment   = require('moment');
 const expensesModel = mongoose.model('expenses');
 
 let expensesFunction = (req, res) => {
     let createExpenses = () => {
         return new Promise((resolve, reject) => {
-            expensesModel.findOne({ category: req.body.category })
-                .exec((err, retrievedExpensesDetails) => {
-                    if (err) {
-                        logger.error(err.message, 'expensesController: createExpenses', 10)
-                        let apiResponse = response.generate(true, 'Failed To Create Expenses', 500, null)
-                        reject(apiResponse)
-                    } else if (check.isEmpty(retrievedExpensesDetails)) {
-                        console.log(req.body)
+            console.log(req.body)
                         // let today = Date.now();
+                        let ddate = moment().format(req.body.date,"DD-MM-YYY")
                         let newExpenses = new expensesModel({
                             expensesId:             shortid.generate(),
                             party:                  req.body.party,
                             category:               req.body.category,
-                            date:                   req.body.date,
+                            date:                   ddate,
                             remark:                 req.body.remark,
                             amount:                 req.body.amount
                         })
@@ -38,13 +32,7 @@ let expensesFunction = (req, res) => {
                                 let newExpensesObj = newExpenses.toObject();
                                 resolve(newExpensesObj)
                             }
-                        })
-                    } else {
-                        logger.error('Expenses Cannot Be Created.Category Already Present', 'ExpensesController: createExpenses', 4)
-                        let apiResponse = response.generate(true, "Category Already Present With this Category", 403, null)
-                        reject(apiResponse)
-                    }
-                })
+                        }) 
         })
     }// end create Expenses function
     createExpenses(req, res)
@@ -56,8 +44,6 @@ let expensesFunction = (req, res) => {
             console.log(err);
             res.send(err);
         })
-
-
 }// end  Employee function 
 
  let  getAllExpenses = (req,res) =>{
@@ -273,7 +259,7 @@ let filterbydate=(req,res)=>{
         })
    }
   else{
-    const db1= expensesModel.find({ "date":{"$gte":fromdate,"$lte":todate}}, async(err, resultfdate) => {
+    const db1= expensesModel.find({ "ddate":{"$gte":fromdate,"$lte":todate}}, async(err, resultfdate) => {
         if (resultfdate) {
             await db1;
             let apiResponse = response.generate(false, 'Found by this range date', 200, resultfdate)

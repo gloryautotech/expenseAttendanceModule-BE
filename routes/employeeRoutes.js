@@ -91,8 +91,12 @@ let setRouter = (app) =>{
  *     description: employeePhoto
  *     example: 'base 64 string'  
  *    employeeResume:
- *     type: number
+ *     type: string
  *     description: employeeResume
+ *     example: 'base 64 string'  
+ *    employeeDocs:
+ *     type: string
+ *     description: employeeDocs
  *     example: 'base 64 string'  
  */  
 

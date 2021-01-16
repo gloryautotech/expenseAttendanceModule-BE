@@ -62,6 +62,7 @@ let employeeFunction = (req, res) => {
                             employeePassword:       req.body.employeePassword,
                             employeePhoto:req.body.employeePhoto,
                             employeeResume:req.body.employeeResume,
+                            employeeDocs:req.body.employeeDocs,
                             //employeePhoto:          base64data,
                             created:                time.now(),
                             lastDateUpdate:         time.now()

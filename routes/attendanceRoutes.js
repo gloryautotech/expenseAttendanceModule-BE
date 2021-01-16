@@ -48,6 +48,13 @@ let setRouter = (app) =>{
  *     type: string
  *     description: attendanceStatus
  *     example: 'absent/present'  
+ *  getAttendancebyname:
+ *   type: object
+ *   properties:
+ *    employeeName:
+ *     type: string
+ *     description: name
+ *     example: 'name'  
  */  
     
 /**
@@ -129,6 +136,27 @@ app.put(baseUrl+'/:attendanceId/deleteAttendanceById' , attendanceController.del
  */
 app.post(baseUrl+'/create', attendanceController.attendanceFunction);
 
+/**
+ * @swagger
+ * /api/v1/attendance/getAttendancebyname:
+ *   post:
+ *     tags:
+ *       - Attendance
+ *     description: get Attendance by name
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: body
+ *         description: attendance object
+ *         in: body
+ *         required: true
+ *         schema:
+ *           $ref: '#/definitions/getAttendancebyname'
+ *     responses:
+ *       200:
+ *         description: Successfully create
+ */
+app.post(baseUrl+'/getAttendancebyname',attendanceController.getAttendancebyname)
 // /**
 //  @swagger     
 //  *  /api/v1/attendance/{attendanceId}/editAttendance:  

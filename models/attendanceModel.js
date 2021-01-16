@@ -30,7 +30,6 @@ let attendanceSchema = new Schema({
         type:String,
         // default:Date.now
         default:moment().format("MM-DD-YYYY")
-        
     },
     attendanceStatus:{
         required:true,

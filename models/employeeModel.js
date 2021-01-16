@@ -63,6 +63,9 @@ let emplyeeSchema = new Schema({
         employeeResume:{
             type:String,
         },
+        employeeDocs:{
+            type:String,
+        },
         created:{
             type:Date,
             default:Date.now
