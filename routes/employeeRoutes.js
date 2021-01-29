@@ -187,8 +187,6 @@ let setRouter = (app) =>{
  *     responses:
  *       200:
  *         description: An array of Employee
- *         schema:
- *           $ref: '#/definitions/getAllEmployee'
  */
 app.get(baseUrl+'/getAllEmployee', employeeController.getAllEmployee);
 

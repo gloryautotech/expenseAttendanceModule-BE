@@ -144,13 +144,13 @@ let deleteAttendanceById = (req,res) =>{
 
 let editAttendance = (req, res) =>{
 
-        if(check.isEmpty(req.params.attendanceId)){
+        if(check.isEmpty(req.body.attendanceId)){
             console.log("please enter attendance Id");
             let apiResponse = response.generate(true, "missing attendance Id", 403, null);
             res.send(apiResponse);
         } else {
             let optioins = req.body;
-            attendanceModel.update({"attendanceId": req.params.attendanceId}, optioins, {multi:true}).exec((err, result) =>{
+            attendanceModel.update({"attendanceId": req.body.attendanceId}, optioins, {multi:true}).exec((err, result) =>{
                 if(err){
                     console.log(err);
                     logger.error(err.message, "attendance Controller: editAttendance");

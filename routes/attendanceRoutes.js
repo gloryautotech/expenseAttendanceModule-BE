@@ -55,6 +55,33 @@ let setRouter = (app) =>{
  *     type: string
  *     description: name
  *     example: 'name'  
+ *  editAttendance:
+ *   type: object
+ *   properties:
+ *    attendanceId:
+ *     type: string
+ *     description: attendanceId
+ *     example: 'attendanceId'  
+ *    employeeName:
+ *     type: string
+ *     description: name
+ *     example: 'name'  
+ *    startTime:
+ *     type: string
+ *     description: startTime
+ *     example: '12:12 PM'  
+ *    endTime:
+ *     type: string
+ *     description: endTime
+ *     example: '12:12 PM'  
+ *    Date:
+ *     type: string
+ *     description: Date
+ *     example: 'MM-DD-YYYY'  
+ *    attendanceStatus:
+ *     type: string
+ *     description: attendanceStatus
+ *     example: 'absent/present'  
  */  
     
 /**
@@ -157,29 +184,26 @@ app.post(baseUrl+'/create', attendanceController.attendanceFunction);
  *         description: Successfully create
  */
 app.post(baseUrl+'/getAttendancebyname',attendanceController.getAttendancebyname)
-// /**
-//  @swagger     
-//  *  /api/v1/attendance/{attendanceId}/editAttendance:  
-//  *    put:   
-//  *      tags:    
-//  *        - Attendance     
-//  *      description: Updates a single Attendance 
-//  *      produces:    
-//  *        - application/json     
-//  *      parameters:  
-//  *        - name: attendanceId   
-//  *          description: attendanceId   
-//  *          in: body     
-//  *          required: true 
-//  *          schema:
-//  *          $ref: '#/definitions/createattendance'
-//  *      responses:   
-//  *        200:   
-//  *          description: Successfully Edit Attendance  
-//  *        500:   
-//  *          description: Server error
-//  * */
-// app.put(baseUrl+'/:attendanceId/editAttendance' , attendanceController.editAttendance);
+
+/**
+ * @swagger
+ * /api/v1/attendance/editAttendance:
+ *   post:
+ *     tags:
+ *       - Attendance
+ *     description: Edit a Attendance
+ *     parameters:
+ *       - name: attendanceId
+ *         description: body
+ *         in: body
+ *         required: true
+ *         schema:
+ *           $ref: '#/definitions/editAttendance'
+ *     responses:
+ *       200:
+ *         description: Successfully created
+ */
+app.post(baseUrl+'/editAttendance' , attendanceController.editAttendance);
 }
 
 module.exports ={
