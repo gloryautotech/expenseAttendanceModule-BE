@@ -36,6 +36,21 @@ app.use(basetUrl+'/api/doc', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
  *     type: string
  *     description: date
  *     example: 'MM-DD-YYYY'  
+ *  editCategory:
+ *   type: object
+ *   properties:
+ *    categoryId:
+ *     type: string
+ *     description: categoryId
+ *     example: 'categoryId'  
+ *    categoryName:
+ *     type: string
+ *     description: name
+ *     example: 'name'  
+ *    date:
+ *     type: string
+ *     description: date
+ *     example: 'MM-DD-YYYY'  
  */  
 
 /**
@@ -95,33 +110,27 @@ app.get(basetUrl+'/:categoryId/getSingleCategory', categoryController.getSingleC
  */
 app.put(basetUrl+'/:categoryId/delete', categoryController.deleteCatgeory);
 
-// /**
-//  @swagger     
-//  *  /api/v1/category/{categoryId}/editCategory:  
-//  *    put:   
-//  *      tags:    
-//  *        - Category     
-//  *      description: Updates a single  Category 
-//  *      produces:    
-//  *        - application/json     
-//  *      parameters:  
-//  *        - name: categoryName   
-//  *          description: categoryName object resources   
-//  *          in: body     
-//  *          required: true   
-//  *          schema:  
-//  *            $ref: '#/components/schemas/editCategory'  
-//  *        - name: categoryId     
-//  *          description: Catgeory Object ID  
-//  *          in: path     
-//  *          required: true   
-//  *      responses:   
-//  *        200:   
-//  *          description: Successfully Edit category  
-//  *        500:   
-//  *          description: Server error
-//  * */
-// app.put(basetUrl+'/:categoryId/editCategory', categoryController.editCategory);
+/**
+ @swagger     
+ *  /api/v1/category/editCategory:  
+ *    post:   
+ *      tags:    
+ *        - Category     
+ *      description: Updates a single  Category 
+ *      parameters:  
+ *        - name: categoryId     
+ *          description: categoryId 
+ *          in: body     
+ *          required: true   
+ *          schema:
+ *            $ref: '#/definitions/editCategory'
+ *      responses:   
+ *        200:   
+ *          description: Successfully Edit category  
+ *        500:   
+ *          description: Server error
+ * */
+app.post(basetUrl+'/editCategory', categoryController.editCategory);
 
 /**
  * @swagger

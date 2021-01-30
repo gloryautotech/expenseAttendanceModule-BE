@@ -1,5 +1,6 @@
 const express = require("express");
 const userController = require("./../controller/usercontroller");
+const authtoken=require("./../middleware/verifytoken")
 const appConfig           = require("./../config/appConfig");
 
 const swaggerJSDoc=require('swagger-jsdoc')
@@ -178,6 +179,9 @@ app.post(baseUrl+'/userEdit', userController.userEdit);
  *         description: Successfully create
  */
 app.post(baseUrl+'/create', userController.userFunction);
+app.post(baseUrl+'/login',userController.login)
+app.get(baseUrl+'/sample', authtoken.verifyToken, userController.getusersample);
+
 }
 module.exports = {
     setRouter:setRouter

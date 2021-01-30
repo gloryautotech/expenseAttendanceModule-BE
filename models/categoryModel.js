@@ -11,24 +11,19 @@ let categorySchema = new Schema({
         },
         categoryName:{
             type:String,
-          
             default:''
         },
         date:{
             type:String,
-          
             default: moment().format('MM-DD-YYYY')
         },
         created:{
             type:String, 
-            // default:''
-            // default: moment().format('L')+ "," + moment().format('hh:mm')
             default: moment().format('MM-DD-YYYY')
             
         },
         lastModified:{
             type:String,
-            // default:Date.now
             default: moment().format('MM-DD-YYYY')
         }
 

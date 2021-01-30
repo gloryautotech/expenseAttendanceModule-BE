@@ -159,15 +159,13 @@ let deleteCatgeory = (req,res) =>{
 }
 
 let editCategory = (req,res) =>{
-    if(check.isEmpty(req.params.categoryId)){
-        console.log("category shude be passde");
+    if(check.isEmpty(req.body.categoryId)){
+        console.log("category should be pass");
         let apiResponse = response.generate(true, "missing expensesId", 403, null);
         res.send(apiResponse);
-
     } else {
-
         let options = req.body;
-        categoryModel.update({'categoryId': req.params.categoryId},options, {multi:true}).exec((err, result) =>{
+        categoryModel.update({'categoryId': req.body.categoryId},options, {multi:true}).exec((err, result) =>{
             if(err) {
                 console.log(err);
                 logger.error(err.message,"Category Controller: editCatgeory");

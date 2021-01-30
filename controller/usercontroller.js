@@ -7,7 +7,11 @@ const validateInput = require('./../lib/paramsValidationLib');
 const check    = require("./../lib/checkLib");
 const fs = require("fs");
 const { exec } = require("child_process");
-
+var crypto=require('crypto');
+var key="password"
+var algo='aes256'
+const jwt=require('jsonwebtoken')
+jwtKey='jwt'
 const newUserModel = mongoose.model('user');
 
 // start employeefunction 
@@ -41,12 +45,15 @@ let userFunction = (req, res) => {
                         reject(apiResponse)
                     } else if (check.isEmpty(retrievedUserDetails)) {
                         console.log(req.body)
+                        var cipher=crypto.createCipher(algo,key);
+                        var encrpypted=cipher.update(req.body.userPassword,'utf8','hex')
+                        +cipher.final('hex')
                         let newUser = new newUserModel({
                             userId:             shortid.generate(),
                             name:      req.body.name,
                             userEmail:          req.body.userEmail.toLowerCase(),
                             userName:         req.body.userName,  
-                            userPassword:       req.body.userPassword,
+                            userPassword:       encrpypted,
                             userNumber :      req.body.userNumber,
                             created:                time.now()
                         })
@@ -183,6 +190,76 @@ let userEdit = (req,res) =>{
       
     }
 }
+let login=(req,res)=>{
+    newUserModel.findOne({userEmail:req.body.userEmail}).exec((err,result)=>{
+    if(err){
+    console.log(err);
+                logger.error(err.message, "userController: login");
+                let apiResponse = response.generate(true,"Failed to login", 500, null);
+                res.send(apiResponse);
+            }
+            else if(check.isEmpty(result)){
+                let apiResponse = response.generate(true,"not user found",404,null);
+                res.send(apiResponse);
+            }
+            else{
+       var decipher=crypto.createDecipher(algo,key);
+       var decrypted=decipher.update(result.userPassword,'hex','utf8')+
+       decipher.final('utf8')
+       if(decrypted==req.body.userPassword){
+        jwt.sign({result}, jwtKey, { expiresIn: '300s' }, (err, token) => {
+            res.json({
+            token
+            });
+        });
+    }
+    else{
+        let apiResponse = response.generate(true,"Please enter userPassword",404,null);
+        res.send(apiResponse);
+    }
+    }
+    })
+}
+/* Get all Eployee Details */
+let getusersample = (req, res) => {
+    newUserModel.find()
+        .select(' -__v -_id -employeePhoto')
+        .lean()
+        .exec((err, result) => {
+            if (err) {
+                console.log(err)
+                logger.error(err.message, 'userController: getAllUser', 10)
+                let apiResponse = response.generate(true, 'Failed To Find User Details', 500, null)
+                res.send(apiResponse)
+            } else if (check.isEmpty(result)) {
+                logger.info('No user Found', 'userController: getAllUser')
+                let apiResponse = response.generate(true, 'No user Found', 404, null)
+                res.send(apiResponse)
+            } else {
+                let apiResponse = response.generate(false, 'All User Details Found', 200, result)
+                res.send(apiResponse)
+            }
+        })
+}
+// function verifyToken(req,res,next){
+//     const bearerHeader=req.headers['authorization'];
+//     if(typeof bearerHeader !=='undefined'){
+//         const bearer=bearerHeader.split(' ')
+//         console.log(bearer[1])
+//         req.token=bearer[1]
+//         jwt.verify(req.token,jwtKey,(err,authData)=>{
+//             if(err){
+//                 res.send("Not verified")
+//             }
+//             else{
+//                 next()
+//             }
+//         })
+//         //res.send("Hello")
+//     }else{
+//         res.send({"result":"Token not provided"})
+//     }
+// }
 // end edit employee
 module.exports = {
 
@@ -190,5 +267,8 @@ module.exports = {
     getAllUser:getAllUser,
     deleteUser:deleteUser,
     getUserbyid:getUserbyid,
-    userEdit:userEdit
+    userEdit:userEdit,
+    login:login,
+    getusersample:getusersample,
+    //verifyToken:verifyToken
 }// end exports
