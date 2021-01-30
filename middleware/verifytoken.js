@@ -1,7 +1,4 @@
 const fs = require('fs');
-var crypto=require('crypto');
-var key="password"
-var algo='aes256'
 const jwt=require('jsonwebtoken')
 jwtKey='jwt'
 

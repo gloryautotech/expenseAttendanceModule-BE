@@ -75,6 +75,17 @@ let setRouter = (app) =>{
  *     type: string
  *     description: userPassword
  *     example: 'userPassword'
+ *  login:
+ *   type: object
+ *   properties:
+ *    userEmail:
+ *     type: string
+ *     description: userEmail
+ *     example: 'userEmail'  
+ *    userPassword:
+ *     type: string
+ *     description: userPassword
+ *     example: 'userPassword'  
  */  
     
 /**
@@ -179,6 +190,27 @@ app.post(baseUrl+'/userEdit', userController.userEdit);
  *         description: Successfully create
  */
 app.post(baseUrl+'/create', userController.userFunction);
+
+/**
+ * @swagger
+ * /api/v1/user/login:
+ *   post:
+ *     tags:
+ *       - Login
+ *     description: Creates a new Expenses
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - name: login
+ *         description: Expenses object
+ *         in: body
+ *         required: true
+ *         schema:
+ *           $ref: '#/definitions/login'
+ *     responses:
+ *       200:
+ *         description: Successfully create
+ */
 app.post(baseUrl+'/login',userController.login)
 app.get(baseUrl+'/sample', authtoken.verifyToken, userController.getusersample);
 
