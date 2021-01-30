@@ -104,7 +104,7 @@ let employeeFunction = (req, res) => {
 /* Get all Eployee Details */
 let getAllEmployee = (req, res) => {
     employeeModel.find()
-        .select(' -__v -_id -employeePhoto')
+        .select(' -__v -_id')
         .lean()
         .exec((err, result) => {
             if (err) {

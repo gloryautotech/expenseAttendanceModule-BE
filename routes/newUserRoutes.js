@@ -10,7 +10,9 @@ const options = {
       info:{
         title:'Swagger Task API',
         version:'1.0.0',
-        description:''
+        description:'',
+        authAction :{ JWT: {name: "JWT", schema: {type: "apiKey", in: "header", name: "Authorization", description: ""}, value: "Bearer <JWT>"} }
+
       },
     },
     apis:['./routes/*.js']
@@ -37,6 +39,10 @@ let setRouter = (app) =>{
  *     type: string
  *     description: userEmail
  *     example: 'yash@gmail.com'  
+ *    userNumber:
+ *     type: string
+ *     description: userNumber
+ *     example: '9624165122'  
  *    userName:
  *     type: string
  *     description: userName

@@ -12,7 +12,9 @@ const options = {
       info:{
         title:'Swagger Task API',
         version:'1.0.0',
-        description:''
+        description:'',
+        authAction :{ JWT: {name: "JWT", schema: {type: "apiKey", in: "header", name: "Authorization", description: ""}, value: "Bearer <JWT>"} }
+
       },
     },
     apis:['./routes/*.js']

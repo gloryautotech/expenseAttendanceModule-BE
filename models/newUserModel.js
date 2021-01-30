@@ -14,6 +14,9 @@ let userSchema = new Schema({
         userEmail:{
             type:String,
         },
+        userNumber:{
+            type:Number
+        },
         userName:{
             type:String,
           
@@ -21,7 +24,6 @@ let userSchema = new Schema({
         },
         userPassword:{
             type:String,
-          
             default:''
         },
         created:{

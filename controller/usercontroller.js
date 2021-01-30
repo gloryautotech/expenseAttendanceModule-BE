@@ -47,6 +47,7 @@ let userFunction = (req, res) => {
                             userEmail:          req.body.userEmail.toLowerCase(),
                             userName:         req.body.userName,  
                             userPassword:       req.body.userPassword,
+                            userNumber :      req.body.userNumber,
                             created:                time.now()
                         })
                         newUser.save((err, newUser) => {
