@@ -6,7 +6,7 @@ let attendanceSchema = new Schema({
 
     attendanceId:{
         type:String,
-        default:''
+        unique: true
     },
     employeeName:{
         type:String,
