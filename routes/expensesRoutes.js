@@ -55,12 +55,12 @@ let setRouter = (app) =>{
  *   properties:
  *    fromdate:
  *     type: string
- *     description: fromdate
- *     example: '01-01-2021'  
+ *     description: YYYY-MM-DD fromdate
+ *     example: '2021-12-01'  
  *    todate:
  *     type: string
- *     description: todate
- *     example: '01-02-2021'  
+ *     description: YYYY-MM-DD todate
+ *     example: '2021-12-01'  
  *  expensesEdit:
  *   type: object
  *   properties:

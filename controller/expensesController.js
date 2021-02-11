@@ -6,19 +6,23 @@ const response = require('../lib/responseLib');
 const logger   = require('../lib/loggerLib');
 const check    = require('../lib/checkLib'); 
 const moment   = require('moment');
+const { invalid } = require('moment');
 const expensesModel = mongoose.model('expenses');
 
 let expensesFunction = (req, res) => {
     let createExpenses = () => {
         return new Promise((resolve, reject) => {
             console.log(req.body)
-                        // let today = Date.now();
-                        let ddate = moment().format(req.body.date,"DD-MM-YYY")
+                        // // let today = Date.now();
+                        // let ddate = moment().format(req.body.date,'DD-MM-YYYY')
+                        //const ddate = new Date(req.body.date,"<YYYY-mm-dd>")
+
+                        console.log(req.body.date)
                         let newExpenses = new expensesModel({
                             expensesId:             shortid.generate(),
                             party:                  req.body.party,
                             category:               req.body.category,
-                            date:                   ddate,
+                            date:                   req.body.date,
                             remark:                 req.body.remark,
                             amount:                 req.body.amount
                         })
@@ -221,9 +225,9 @@ let getViewByDateExpense = (req,res) =>{
 
 let filterbydate=(req,res)=>{
     var fromdate=req.body.fromdate
-    var todate=req.body.todate
-   console.log(fromdate)
-   console.log(todate)
+    var todate=req.body.todate   
+    console.log(fromdate)
+    console.log(todate)
    if(fromdate==null && todate==null)
    {
     expensesModel.find()
@@ -236,8 +240,10 @@ let filterbydate=(req,res)=>{
         }
     })      
    }
-   else if(fromdate!=null && todate==null){
-    expensesModel.find({ "date":{"$gte":fromdate}}, (err, resultfdate) => {
+   else if(fromdate!=null && todate==null)
+   {
+    var fromdate1 = new Date(fromdate)
+    expensesModel.find({ "date":{"$gte":fromdate1}}, (err, resultfdate) => {
         if (resultfdate) {
             let apiResponse = response.generate(false, 'Found by this range date', 200, resultfdate)
             res.send(apiResponse)
@@ -247,8 +253,10 @@ let filterbydate=(req,res)=>{
             }
         })
    }
-   else if(fromdate==null && todate!=null){
-    expensesModel.find({ "date":{"$lte":todate}}, (err, resultfdate) => {
+   else if(todate!=null && fromdate==null)
+   {
+    var todate1 = new Date(todate)
+    expensesModel.find({ "date":{"$lte":todate1}}, (err, resultfdate) => {
         if (resultfdate) {
             let apiResponse = response.generate(false, 'Found by this range date', 200, resultfdate)
             res.send(apiResponse)
@@ -259,7 +267,11 @@ let filterbydate=(req,res)=>{
         })
    }
   else{
-    const db1= expensesModel.find({ "ddate":{"$gte":fromdate,"$lte":todate}}, async(err, resultfdate) => {
+      
+    var fromdate1 = new Date(req.body.fromdate)
+    var todate1 = new Date(req.body.todate)
+    console.log(Date())
+    const db1= expensesModel.find({ "date":{"$gte":fromdate1,"$lte":todate1}}, async(err, resultfdate) => {
         if (resultfdate) {
             await db1;
             let apiResponse = response.generate(false, 'Found by this range date', 200, resultfdate)

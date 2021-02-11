@@ -16,8 +16,7 @@ const expensesSchema = new Schema({
             default:'' 
         },
         date:{
-            type:String,
-            // default: moment().format('DD-MM--YYYY')
+            type:Date,
         },
         remark:{
             type:String,

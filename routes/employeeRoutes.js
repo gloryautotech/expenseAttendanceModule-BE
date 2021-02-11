@@ -211,7 +211,6 @@ app.get(baseUrl+'/getAllEmployee', employeeController.getAllEmployee);
  *       200:
  *         description: A single Employee
  *         schema:
- *           $ref: '#/definitions/:employeeId/EmployeeId'
  */
 app.put(baseUrl+'/:employeeJoinDate/getByJoinDateEmployee', employeeController.getByJoinDateEmployee);
 
