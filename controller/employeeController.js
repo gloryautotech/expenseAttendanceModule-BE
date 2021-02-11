@@ -234,7 +234,9 @@ let getByJoinDateEmployee = (req, res) => {
         let apiResponse = response.generate(true, "missing employeeJoinDate", 403, null);
         res.send(apiResponse);   
     } else {
-    employeeModel.findOne({ 'employeeJoinDate': req.params.employeeJoinDate })
+        var employeeJoinDate1 = new Date(req.params.employeeJoinDate)
+
+    employeeModel.findOne({ 'employeeJoinDate': employeeJoinDate1 })
         .select('-password -__v -_id')
         .lean()
         .exec((err, result) => {
@@ -259,7 +261,10 @@ let getByJoinDateEmployee = (req, res) => {
 let employeeFormToDate = (req,res) =>{
     let startDate =  req.query.startDate;
     let endDate =    req.query.endDate;
-    employeeModel.find({"employeeJoinDate":{"$gte": startDate, "$lte": endDate }})
+    var startDate1 = new Date(startDate)
+    var endDate1 = new Date(endDate)
+    
+    employeeModel.find({"employeeJoinDate":{"$gte": startDate1, "$lte": endDate1 }})
         .select("-__v -_id -employeePhoto")
         .lean()
         .exec((err, result)=>{

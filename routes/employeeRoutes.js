@@ -57,13 +57,13 @@ let setRouter = (app) =>{
  *     description: employee Rate
  *     example: '500'  
  *    employeeJoinDate:
- *     type: string
+ *     type: Date
  *     description: employeeJoinDate
- *     example: 'DD-MM-YYYY'  
+ *     example: 'YYYY-DD-MM'  
  *    employeeDateOfBirthday:
- *     type: string
+ *     type: Date
  *     description: employeeDateOfBirthday
- *     example: 'DD-MM-YYYY'  
+ *     example: 'YYYY-DD-MM'  
  *    employeeDegree:
  *     type: string
  *     description: employeeDegree

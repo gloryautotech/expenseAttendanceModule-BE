@@ -42,10 +42,10 @@ let setRouter = (app) =>{
  *     type: string
  *     description: endTime
  *     example: '12:12 PM'  
- *    Date:
- *     type: string
+ *    date:
+ *     type: Date
  *     description: Date
- *     example: 'MM-DD-YYYY'  
+ *     example: 'YYYY-MM-DD'  
  *    attendanceStatus:
  *     type: string
  *     description: attendanceStatus
@@ -77,9 +77,9 @@ let setRouter = (app) =>{
  *     description: endTime
  *     example: '12:12 PM'  
  *    Date:
- *     type: string
+ *     type: Date
  *     description: Date
- *     example: 'MM-DD-YYYY'  
+ *     example: 'YYYY-MM-DD' 
  *    attendanceStatus:
  *     type: string
  *     description: attendanceStatus

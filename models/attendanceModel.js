@@ -22,9 +22,9 @@ let attendanceSchema = new Schema({
         default:moment().format("LT")
     },
     Date:{
-        type:String,
+        type:Date,
         // default:Date.now
-        default:moment().format("MM-DD-YYYY")
+        //default:moment().format("MM-DD-YYYY")
     },
     attendanceStatus:{
         type:String,

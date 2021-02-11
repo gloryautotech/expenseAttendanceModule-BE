@@ -31,12 +31,12 @@ let emplyeeSchema = new Schema({
             type:Number,
         },
         employeeJoinDate:{
-            type:String,
-            default: moment().format('DD-MM-YYYY')
+            type:Date,
+            //default: moment().format('DD-MM-YYYY')
         },
         employeeDateOfBirthday:{
-            type:String, 
-            default: moment().format('DD-MM-YYYY')
+            type:Date,
+            //default: moment().format('DD-MM-YYYY')
         },
         employeeDegree:{
             type:String,

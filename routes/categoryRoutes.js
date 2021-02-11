@@ -33,9 +33,9 @@ app.use(basetUrl+'/api/doc', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
  *     description: name
  *     example: 'name'  
  *    date:
- *     type: string
+ *     type: Date
  *     description: date
- *     example: 'MM-DD-YYYY'  
+ *     example: 'YYYY-MM-DD'  
  *  editCategory:
  *   type: object
  *   properties:
@@ -51,6 +51,7 @@ app.use(basetUrl+'/api/doc', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
  *     type: string
  *     description: date
  *     example: 'MM-DD-YYYY'  
+ 
  */  
 
 /**

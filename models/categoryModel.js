@@ -14,8 +14,8 @@ let categorySchema = new Schema({
             default:''
         },
         date:{
-            type:String,
-            default: moment().format('MM-DD-YYYY')
+            type:Date,
+            //default: moment().format('MM-DD-YYYY')
         },
         created:{
             type:String, 
