@@ -27,7 +27,7 @@ let attendanceFunction = (req, res) => {
                             employeeName:           req.body.employeeName,
                             startTime:              req.body.startTime,
                             endTime:                req.body.endTime,
-                            Date:                   req.body.date,
+                            Date:                   req.body.Date,
                             attendanceStatus:       req.body.attendanceStatus
                             // created:                time.now(),
                             // lastModified:           time.now()
