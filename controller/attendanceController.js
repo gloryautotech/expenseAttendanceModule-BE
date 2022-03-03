@@ -13,13 +13,14 @@ let attendanceFunction = (req, res) => {
 
     let createAttendance = () => {
         return new Promise((resolve, reject) => {
-            attendanceModel.findOne({ employeeName: req.body.employeeName })
+            attendanceModel.findOne({ employeeName: req.body.employeeName, date: req.body.Date })
                 .exec((err, retrievedAttendanceDetails) => {
                     if (err) {
                         logger.error(err.message, 'attendance Controller: createAttendance', 10)
                         let apiResponse = response.generate(true, 'Failed To Create Attendance', 500, null)
                         reject(apiResponse)
-                    } else if (check.isEmpty(retrievedAttendanceDetails)) {
+                    } 
+                    else if (check.isEmpty(retrievedAttendanceDetails)) {
                         console.log(req.body)
 
                         let newAttendance = new attendanceModel({
