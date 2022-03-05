@@ -9,6 +9,9 @@ const fs = require("fs");
 const { exec } = require("child_process");
 
 const employeeModel = mongoose.model('employee');
+const attendanceModel = mongoose.model('attendance');
+
+// const attendanceModel = require('../models/attendanceModel');
 
 // start employeefunction 
 let employeeFunction = (req, res) => {
@@ -124,36 +127,38 @@ let getAllEmployee = (req, res) => {
 }// end get all Employee
 
 
-let deleteEmployee = (req, res) => {
+let deleteEmployee =  (req, res) => {
     if(check.isEmpty(req.params.employeeId)){
         console.log("please enter the employeeId");
         let apiResponse = response.generate(true, "misiing the employeeId", 403, null);
         res.send(apiResponse);
     } else {
-        employeeModel.findOne({ 'employeeId': req.params.employeeId }).exec((err, result) => {
+        employeeModel.findOne({ 'employeeId': req.params.employeeId }).exec( async (err, result) => {
                 if (result) {
-                    var employeePhoto = result.employeePhoto;
-                    employeeModel.findOne({"employeePhoto": employeePhoto}, (err, result) =>{
-                        if(result){
-                            employeeModel.findOneAndRemove({ 'employeeId': req.params.employeeId }).exec((err, result) => {
-                                if (err) {
-                                    console.log(err)
-                                    logger.error(err.message, 'Employee Controller: deleteEmployee', 10)
-                                    let apiResponse = response.generate(true, 'Failed To delete employee', 500, null)
-                                    res.send(apiResponse)
-                                } else if (check.isEmpty(result)) {
-                                    logger.info('No employee Found', 'Empoloyee Controller: deleteEmployee')
-                                    let apiResponse = response.generate(true, 'No Employee Found', 404, null)
-                                    res.send(apiResponse)
-                                } else {
-                                    let apiResponse = response.generate(false, 'Deleted the Employee successfully', 200, result)
-                                    res.send(apiResponse)
-                                }
-                            });  
-                        } else {
-                            console.log(err);
-                        }
-                    })
+                    // var employeePhoto = result.employeePhoto;
+                    let employeeName = result.employeeFirstName +" "+ result.employeeLastName;
+                    let attendance = await attendanceModel.findOne({"employeeName": employeeName});
+                    if(attendance){
+                        let apiResponse = response.generate(true, 'Employee cant be deleted attendance is present', 404, null)
+                        res.send(apiResponse)      
+                    }
+                    else{  
+                        employeeModel.findOneAndRemove({ 'employeeId': req.params.employeeId }).exec((err, result) => {
+                            if (err) {
+                                console.log(err)
+                                logger.error(err.message, 'Employee Controller: deleteEmployee', 10)
+                                let apiResponse = response.generate(true, 'Failed To delete employee', 500, null)
+                                res.send(apiResponse)
+                            } else if (check.isEmpty(result)) {
+                                logger.info('No employee Found', 'Empoloyee Controller: deleteEmployee')
+                                let apiResponse = response.generate(true, 'No Employee Found', 404, null)
+                                res.send(apiResponse)
+                            } else {
+                                let apiResponse = response.generate(false, 'Deleted the Employee successfully', 200, result)
+                                res.send(apiResponse)
+                            }
+                        });
+                    } 
             
                 } else if (check.isEmpty(result)) {
                     logger.info('No employee Found', 'Empoloyee Controller: deleteEmployee')
